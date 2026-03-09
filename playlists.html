@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MusicHive v2</title>
+<title>Плейлисты — MusicHive</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,8 +17,18 @@
 </nav>
 
 <main>
-<h1>Рекомендации</h1>
-<div id="tracks"></div>
+<h1>Мои плейлисты</h1>
+
+<div class="playlist">
+<h3>🔥 Топ треки</h3>
+<button onclick="playTrack('track1.mp3','Top Track')">Play</button>
+</div>
+
+<div class="playlist">
+<h3>😎 Chill</h3>
+<button onclick="playTrack('track2.mp3','Chill Track')">Play</button>
+</div>
+
 </main>
 
 <div class="mini-player" id="miniPlayer">

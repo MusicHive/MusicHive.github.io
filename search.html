@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MusicHive v2</title>
+<title>Поиск — MusicHive</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,14 +17,12 @@
 </nav>
 
 <main>
-<h1>Рекомендации</h1>
-<div id="tracks"></div>
-</main>
+<h1>Поиск музыки (YouTube)</h1>
+<input id="searchInput" placeholder="Введите название трека">
+<button onclick="search()">Поиск</button>
 
-<div class="mini-player" id="miniPlayer">
-<span id="nowPlaying">Ничего не играет</span>
-<button onclick="togglePlay()">▶</button>
-</div>
+<div id="results"></div>
+</main>
 
 <script src="script.js"></script>
 </body>

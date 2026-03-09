@@ -1,65 +1,56 @@
-// Плейлист хранится в localStorage
-let playlist = JSON.parse(localStorage.getItem("playlist")) || [];
 
-// Функция поиска
-function search() {
-    let q = document.getElementById("search").value;
-    fetch(`https://ytsearch.vercel.app/api?q=${q}`)
-    .then(res => res.json())
-    .then(data => {
-        let results = document.getElementById("results");
-        results.innerHTML = "";
-        data.videos.slice(0,5).forEach(video => {
-            let div = document.createElement("div");
-            div.className = "song";
-            div.innerHTML = `
-                <img src="${video.thumbnail}"><br>
-                ${video.title}<br>
-                <button onclick="play('${video.id}')">▶</button>
-                <button onclick="add('${video.id}','${video.title}','${video.thumbnail}')">➕</button>
-            `;
-            results.appendChild(div);
-        });
-    });
+let audio = new Audio();
+let currentTrack = "";
+
+const tracks=[
+{name:"Sample Track 1",file:"track1.mp3"},
+{name:"Sample Track 2",file:"track2.mp3"}
+];
+
+const trackContainer=document.getElementById("tracks");
+
+if(trackContainer){
+tracks.forEach(t=>{
+let div=document.createElement("div");
+div.className="track";
+div.innerHTML=`${t.name} 
+<button onclick="playTrack('${t.file}','${t.name}')">Play</button>
+<button onclick="likeTrack('${t.name}')">❤</button>
+<button onclick="showLyrics('${t.name}')">Lyrics</button>`;
+trackContainer.appendChild(div);
+});
 }
 
-// Функция воспроизведения
-function play(id) {
-    document.getElementById("player").innerHTML =
-    `<iframe width="300" height="170"
-        src="https://www.youtube.com/embed/${id}?autoplay=1"
-        frameborder="0"
-        allowfullscreen></iframe>`;
+function playTrack(file,name){
+currentTrack=name;
+audio.src=file;
+audio.play();
+document.getElementById("nowPlaying").innerText="Сейчас играет: "+name;
 }
 
-// Добавление в плейлист
-function add(id,title,thumb) {
-    playlist.push({id,title,thumb});
-    localStorage.setItem("playlist", JSON.stringify(playlist));
-    showPlaylist();
+function togglePlay(){
+if(audio.paused) audio.play();
+else audio.pause();
 }
 
-// Отображение плейлиста
-function showPlaylist() {
-    let div = document.getElementById("playlist");
-    div.innerHTML = "";
-    playlist.forEach(song => {
-        div.innerHTML += `
-        <div class="song">
-            <img src="${song.thumb}"><br>
-            ${song.title}<br>
-            <button onclick="play('${song.id}')">▶</button>
-        </div>`;
-    });
+function likeTrack(name){
+alert("Лайк поставлен: "+name);
 }
 
-// Случайная музыка
-function randomSong() {
-    let genres = ["lofi hip hop","phonk","chill music","gaming music"];
-    let q = genres[Math.floor(Math.random() * genres.length)];
-    document.getElementById("search").value = q;
-    search();
+function showLyrics(name){
+alert("Lyrics для "+name+" (можно подключить API)");
 }
 
-// Показываем плейлист при загрузке
-showPlaylist();
+function search(){
+let q=document.getElementById("searchInput").value;
+let r=document.getElementById("results");
+r.innerHTML=`
+<p>Результат YouTube для: <b>${q}</b></p>
+<iframe width="400" height="225"
+src="https://www.youtube.com/embed?listType=search&list=${q}">
+</iframe>`;
+}
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('sw.js');
+}
