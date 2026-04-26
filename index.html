@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>MusicHive 🐝 - Honeycomb Grid</title>
+<style>
+:root {
+--bg-color: #0b0b0b;
+--hive-gold: #ffcc00;
+--hive-glow: rgba(255, 204, 0, 0.6);
+--hex-size: 160px;
+}
+
+body {
+background-color: var(--bg-color);
+color: white;
+font-family: 'Arial', sans-serif;
+margin: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Контейнер для сетки сот */
+.hive-container {
+display: grid;
+grid-template-columns: repeat(auto-fill, var(--hex-size));
+grid-auto-rows: calc(var(--hex-size) * 0.75);
+gap: 10px;
+padding: 50px;
+width: 90%;
+justify-content: center;
+}
+
+.hexagon {
+width: var(--hex-size);
+height: var(--hex-size);
+background: #1a1a1a;
+clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+cursor: pointer;
+position: relative;
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* Смещение сот для эффекта улья */
+.hexagon:nth-child(even) {
+transform: translateY(calc(var(--hex-size) * 0.4));
+}
+
+/* Эффект свечения и наведения */
+.hexagon:hover {
+transform: scale(1.1) translateY(0); /* Сбрасываем смещение при увеличении */
+z-index: 10;
+filter: drop-shadow(0 0 20px var(--hive-gold));
+background: var(--hive-gold);
+}
+
+.hexagon:nth-child(even):hover {
+transform: scale(1.1) translateY(calc(var(--hex-size) * 0.4));
+}
+
+.hexagon img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+position: absolute;
+opacity: 0.7;
+transition: 0.3s;
+}
+
+.hexagon:hover img {
+opacity: 0.4;
+}
+
+/* Иконка Play */
+.play-icon {
+opacity: 0;
+font-size: 40px;
+color: #000;
+z-index: 2;
+transition: 0.3s;
+}
+
+.hexagon:hover .play-icon {
+opacity: 1;
+transform: scale(1.2);
+}
+
+.track-info {
+position: absolute;
+bottom: 20%;
+font-size: 12px;
+font-weight: bold;
+color: #000;
+opacity: 0;
+z-index: 2;
+}
+
+.hexagon:hover .track-info {
+opacity: 1;
+}
+
+header {
+padding: 40px;
+text-align: center;
+}
+
+header h1 {
+color: var(--hive-gold);
+text-shadow: 0 0 10px var(--hive-glow);
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>MusicHive 🐝</h1>
+<p>Выбирай свою соту в музыкальном рое</p>
+</header>
+
+<div class="hive-container">
+<div class="hexagon">
+<img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" alt="Art">
+<div class="play-icon">▶</div>
+<div class="track-info">HIT TRACK</div>
+</div>
+<div class="hexagon">
+<img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=300" alt="Art">
+<div class="play-icon">▶</div>
+<div class="track-info">INDIE VIBE</div>
+</div>
+<div class="hexagon">
+<img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300" alt="Art">
+<div class="play-icon">▶</div>
+<div class="track-info">DEEP BASS</div>
+</div>
+<div class="hexagon">
+<img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300" alt="Art">
+<div class="play-icon">▶</div>
+<div class="track-info">NECTAR</div>
+</div>
+<div class="hexagon">
+<img src="https://images.unsplash.com/photo-1459749411177-042180ce673c?w=300" alt="Art">
+<div class="play-icon">▶</div>
+<div class="track-info">WORKER BEE</div>
+</div>
+</div>
+
+</body>
+</html>
